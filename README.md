@@ -22,6 +22,11 @@ on Mobile:
     <img alt="mobile" src="snapshots/mobile.gif">
 </p>
 
+on iOS:
+<p style="text-align: center;">
+    <img alt="ios" src="snapshots/ios.png" width="348px">
+</p>
+
 ## Features
 
 ✈️ Multi-platform: Android, iOS, Windows, macOS and Linux
