@@ -317,14 +317,14 @@ class RouteAddressItem extends ConsumerWidget {
 }
 
 final networkItems = [
-  if (system.isAndroid) const VPNItem(),
-  if (system.isAndroid)
+  if (system.isAndroid || system.isIOS) const VPNItem(),
+  if (system.isAndroid || system.isIOS)
     ...generateSection(
       title: 'VPN',
       items: [
         const VpnSystemProxyItem(),
         const BypassDomainItem(),
-        const AllowBypassItem(),
+        if (system.isAndroid) const AllowBypassItem(),
         const Ipv6Item(),
         const DNSHijackingItem(),
       ],

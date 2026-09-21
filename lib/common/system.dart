@@ -31,11 +31,18 @@ class System {
 
   bool get isLinux => Platform.isLinux;
 
+  bool get isIOS => Platform.isIOS;
+
   Future<int> get version async {
     final deviceInfo = await DeviceInfoPlugin().deviceInfo;
     return switch (Platform.operatingSystem) {
       'macos' => (deviceInfo as MacOsDeviceInfo).majorVersion,
       'android' => (deviceInfo as AndroidDeviceInfo).version.sdkInt,
+      'ios' =>
+        int.tryParse(
+              (deviceInfo as IosDeviceInfo).systemVersion.split('.').first,
+            ) ??
+            0,
       'windows' => (deviceInfo as WindowsDeviceInfo).majorVersion,
       String() => 0,
     };
@@ -121,7 +128,7 @@ class System {
   }
 
   Future<void> exit() async {
-    if (system.isAndroid) {
+    if (system.isAndroid || system.isIOS) {
       await SystemNavigator.pop();
     }
     await window?.close();

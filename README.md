@@ -24,7 +24,7 @@ on Mobile:
 
 ## Features
 
-✈️ Multi-platform: Android, Windows, macOS and Linux
+✈️ Multi-platform: Android, iOS, Windows, macOS and Linux
 
 💻 Adaptive multiple screen sizes, Multiple color themes available
 
@@ -114,6 +114,19 @@ Support the following actions
 
            ```bash
            dart .\setup.dart macos --arch <arm64 | amd64>
+           ```
+
+    - iOS
+
+        1. Use macOS with Xcode, Go, CocoaPods, and an Apple Developer team
+
+        2. Enable the App Group `group.com.champion.flClash` and the Network
+           Extensions capability for both Runner and PacketTunnel targets
+
+        3. Build the iOS core and application
+
+           ```bash
+           dart ./setup.dart ios
            ```
 
 ## Star

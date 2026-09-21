@@ -17,6 +17,9 @@ type ActionResult struct {
 	Data     interface{} `json:"data"`
 	Code     int         `json:"code"`
 	callback unsafe.Pointer
+	// resultCallback is used by platforms which expose the core through a
+	// synchronous native API (currently iOS). Android keeps using callback.
+	resultCallback func(string)
 }
 
 func (result ActionResult) Json() ([]byte, error) {

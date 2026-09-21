@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:fl_clash/common/common.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -15,7 +16,7 @@ class AppPath {
 
   AppPath._internal() {
     appDirPath = join(dirname(Platform.resolvedExecutable));
-    getApplicationSupportDirectory().then((value) {
+    _getDataDirectory().then((value) {
       dataDir.complete(value);
     });
     getTemporaryDirectory().then((value) {
@@ -27,6 +28,18 @@ class AppPath {
     getApplicationCacheDirectory().then((value) {
       cacheDir.complete(value);
     });
+  }
+
+  Future<Directory> _getDataDirectory() async {
+    if (!Platform.isIOS) {
+      return getApplicationSupportDirectory();
+    }
+    const channel = MethodChannel('$packageName/app');
+    final path = await channel.invokeMethod<String>('getSharedContainerPath');
+    if (path == null || path.isEmpty) {
+      throw StateError('iOS App Group directory is unavailable');
+    }
+    return Directory(path)..createSync(recursive: true);
   }
 
   factory AppPath() {

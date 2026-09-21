@@ -7,7 +7,7 @@ import 'package:args/command_runner.dart';
 import 'package:crypto/crypto.dart';
 import 'package:path/path.dart';
 
-enum Target { windows, linux, android, macos }
+enum Target { windows, linux, android, macos, ios }
 
 extension TargetExt on Target {
   String get os {
@@ -30,6 +30,9 @@ extension TargetExt on Target {
     if (Platform.isMacOS && this == Target.macos) {
       return true;
     }
+    if (Platform.isMacOS && this == Target.ios) {
+      return true;
+    }
     return false;
   }
 
@@ -44,6 +47,9 @@ extension TargetExt on Target {
         break;
       case Target.macos:
         extensionName = '.dylib';
+        break;
+      case Target.ios:
+        extensionName = '.a';
         break;
     }
     return extensionName;
@@ -91,6 +97,7 @@ class Build {
     BuildItem(target: Target.android, arch: Arch.arm, archName: 'armeabi-v7a'),
     BuildItem(target: Target.android, arch: Arch.arm64, archName: 'arm64-v8a'),
     BuildItem(target: Target.android, arch: Arch.amd64, archName: 'x86_64'),
+    BuildItem(target: Target.ios, arch: Arch.arm64, archName: 'arm64'),
   ];
 
   static String get appName => 'FlClash';
@@ -238,6 +245,116 @@ class Build {
     }
 
     return corePaths;
+  }
+
+  static Future<List<String>> buildIOSCore() async {
+    if (!Platform.isMacOS) {
+      throw 'iOS builds require macOS and Xcode';
+    }
+
+    final iosOut = join(outDir, Target.ios.name);
+    final deviceOut = join(iosOut, 'device');
+    final simulatorArm64Out = join(iosOut, 'simulator-arm64');
+    final simulatorX64Out = join(iosOut, 'simulator-x64');
+    final frameworkOut = join(iosOut, 'FlClashCore.xcframework');
+    final iosSdk = (await Process.run('xcrun', [
+      '--sdk',
+      'iphoneos',
+      '--show-sdk-path',
+    ])).stdout.toString().trim();
+    final simulatorSdk = (await Process.run('xcrun', [
+      '--sdk',
+      'iphonesimulator',
+      '--show-sdk-path',
+    ])).stdout.toString().trim();
+    final clang = (await Process.run('xcrun', [
+      '--find',
+      'clang',
+    ])).stdout.toString().trim();
+
+    final iosDirectory = Directory(iosOut);
+    if (iosDirectory.existsSync()) {
+      iosDirectory.deleteSync(recursive: true);
+    }
+    for (final path in [deviceOut, simulatorArm64Out, simulatorX64Out]) {
+      Directory(path).createSync(recursive: true);
+    }
+
+    Future<void> buildArchive({
+      required String arch,
+      required String sdk,
+      required String target,
+      required String output,
+    }) async {
+      final flags = '-isysroot $sdk -target $target -mios-version-min=15.0';
+      await exec(
+        [
+          'go',
+          'build',
+          '-ldflags=-w -s',
+          '-tags=$tags',
+          '-buildmode=c-archive',
+          '-o',
+          join(output, 'libclash.a'),
+          '.',
+        ],
+        name: 'build iOS core ($arch)',
+        environment: {
+          'GOOS': 'ios',
+          'GOARCH': arch,
+          'CGO_ENABLED': '1',
+          'CC': clang,
+          'CGO_CFLAGS': flags,
+          'CGO_LDFLAGS': flags,
+        },
+        workingDirectory: _coreDir,
+      );
+    }
+
+    await buildArchive(
+      arch: 'arm64',
+      sdk: iosSdk,
+      target: 'arm64-apple-ios15.0',
+      output: deviceOut,
+    );
+    await buildArchive(
+      arch: 'arm64',
+      sdk: simulatorSdk,
+      target: 'arm64-apple-ios15.0-simulator',
+      output: simulatorArm64Out,
+    );
+    await buildArchive(
+      arch: 'amd64',
+      sdk: simulatorSdk,
+      target: 'x86_64-apple-ios15.0-simulator',
+      output: simulatorX64Out,
+    );
+
+    final simulatorLibrary = join(iosOut, 'libclash-simulator.a');
+    await exec([
+      'lipo',
+      '-create',
+      join(simulatorArm64Out, 'libclash.a'),
+      join(simulatorX64Out, 'libclash.a'),
+      '-output',
+      simulatorLibrary,
+    ], name: 'merge iOS simulator core');
+
+    await exec([
+      'xcodebuild',
+      '-create-xcframework',
+      '-library',
+      join(deviceOut, 'libclash.a'),
+      '-headers',
+      deviceOut,
+      '-library',
+      simulatorLibrary,
+      '-headers',
+      simulatorArm64Out,
+      '-output',
+      frameworkOut,
+    ], name: 'create iOS core XCFramework');
+    return [frameworkOut];
   }
 
   static Future<void> adjustLibOut({
@@ -447,15 +564,13 @@ class BuildCommand extends Command {
         .toList();
     final arch = currentArches.isEmpty ? null : currentArches.first;
 
-    if (arch == null && target != Target.android) {
+    if (arch == null && target != Target.android && target != Target.ios) {
       throw 'Invalid arch parameter';
     }
 
-    final corePaths = await Build.buildCore(
-      target: target,
-      arch: arch,
-      mode: mode,
-    );
+    final corePaths = target == Target.ios
+        ? await Build.buildIOSCore()
+        : await Build.buildCore(target: target, arch: arch, mode: mode);
 
     String? coreSha256;
 
@@ -522,6 +637,15 @@ class BuildCommand extends Command {
           env: env,
         );
         return;
+      case Target.ios:
+        await Build.exec([
+          'flutter',
+          'build',
+          'ios',
+          '--release',
+          '--dart-define-from-file=env.json',
+        ], name: 'build iOS application');
+        return;
     }
   }
 }
@@ -532,5 +656,6 @@ Future<void> main(Iterable<String> args) async {
   runner.addCommand(BuildCommand(target: Target.linux));
   runner.addCommand(BuildCommand(target: Target.windows));
   runner.addCommand(BuildCommand(target: Target.macos));
+  runner.addCommand(BuildCommand(target: Target.ios));
   runner.run(args);
 }

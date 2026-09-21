@@ -143,7 +143,7 @@ extension InitControllerExt on AppController {
       return;
     }
     commonPrint.log('init status');
-    if (system.isAndroid) {
+    if (system.isAndroid || system.isIOS) {
       await globalState.updateStartTime();
     }
     final status = globalState.isStart == true
@@ -747,7 +747,7 @@ extension SetupControllerExt on AppController {
     final realPatchConfig = patchConfig.copyWith.tun(enable: realTunEnable);
     final setupState = await _ref.read(setupStateProvider(profile?.id).future);
     globalState.lastSetupState = setupState;
-    if (system.isAndroid) {
+    if (system.isAndroid || system.isIOS) {
       globalState.lastVpnState = _ref.read(vpnStateProvider);
       preferences.saveShareState(this.sharedState);
     }

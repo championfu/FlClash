@@ -16,7 +16,6 @@ import (
 	"github.com/metacubex/mihomo/component/dialer"
 	"github.com/metacubex/mihomo/component/process"
 	"github.com/metacubex/mihomo/constant"
-	"github.com/metacubex/mihomo/dns"
 	"github.com/metacubex/mihomo/listener/sing_tun"
 	"github.com/metacubex/mihomo/log"
 	"golang.org/x/sync/semaphore"
@@ -36,7 +35,7 @@ type TunHandler struct {
 	limit *semaphore.Weighted
 }
 
-func (th *TunHandler) start(fd int, stack, address, dns string) {
+func (th *TunHandler) start(fd int, stack, address, dns string) bool {
 	runLock.Lock()
 	defer runLock.Unlock()
 	_ = th.limit.Acquire(context.TODO(), 4)
@@ -46,9 +45,10 @@ func (th *TunHandler) start(fd int, stack, address, dns string) {
 	if tunListener != nil {
 		log.Infoln("TUN address: %v", tunListener.Address())
 		th.listener = tunListener
-		return
+		return true
 	}
 	th.clear()
+	return false
 }
 
 func (th *TunHandler) close() {
@@ -138,30 +138,34 @@ func handleStopTun() {
 	}
 }
 
-func handleStartTun(callback unsafe.Pointer, fd int, stack, address, dns string) {
+func handleStartTun(callback unsafe.Pointer, fd int, stack, address, dns string) bool {
 	handleStopTun()
 	tunLock.Lock()
 	defer tunLock.Unlock()
-	if fd != 0 {
-		tunHandler = &TunHandler{
-			callback: callback,
-			limit:    semaphore.NewWeighted(4),
-		}
-		tunHandler.start(fd, stack, address, dns)
+	if fd == 0 {
+		return false
 	}
+	tunHandler = &TunHandler{
+		callback: callback,
+		limit:    semaphore.NewWeighted(4),
+	}
+	return tunHandler.start(fd, stack, address, dns)
 }
 
 func handleUpdateDns(value string) {
 	go func() {
 		log.Infoln("[DNS] updateDns %s", value)
-		dns.UpdateSystemDNS(strings.Split(value, ","))
-		dns.FlushCacheWithDefaultResolver()
+		handleUpdateSystemDNS(strings.Split(value, ","))
 	}()
 }
 
 func (result ActionResult) send() {
 	data, err := result.Json()
 	if err != nil {
+		return
+	}
+	if result.resultCallback != nil {
+		result.resultCallback(string(data))
 		return
 	}
 	invokeResult(result.callback, string(data))
@@ -200,7 +204,9 @@ func invokeAction(callback unsafe.Pointer, paramsChar *C.char) {
 
 //export startTUN
 func startTUN(callback unsafe.Pointer, fd C.int, stackChar, addressChar, dnsChar *C.char) bool {
-	handleStartTun(callback, int(fd), takeCString(stackChar), takeCString(addressChar), takeCString(dnsChar))
+	if !handleStartTun(callback, int(fd), takeCString(stackChar), takeCString(addressChar), takeCString(dnsChar)) {
+		return false
+	}
 	if !isRunning {
 		handleStartListener()
 	} else {
@@ -247,6 +253,9 @@ func getTraffic(onlyStatisticsProxy bool) *C.char {
 }
 
 func sendMessage(message Message) {
+	if dispatchPlatformMessage(message) {
+		return
+	}
 	if eventListener == nil {
 		return
 	}

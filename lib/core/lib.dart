@@ -65,4 +65,4 @@ class CoreLib extends CoreHandlerInterface {
   Completer get completer => _connectedCompleter;
 }
 
-CoreLib? get coreLib => system.isAndroid ? CoreLib() : null;
+CoreLib? get coreLib => system.isAndroid || system.isIOS ? CoreLib() : null;

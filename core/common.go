@@ -128,7 +128,10 @@ func updateListeners() {
 	listener.ReCreateShadowSocks(general.ShadowSocksConfig, tunnel.Tunnel)
 	listener.ReCreateVmess(general.VmessConfig, tunnel.Tunnel)
 	listener.ReCreateTuic(general.TuicServer, tunnel.Tunnel)
-	if !features.Android {
+	// On iOS the utun descriptor is owned by NEPacketTunnelProvider and is
+	// attached explicitly through startTUN after NetworkExtension applies its
+	// routes. Letting mihomo create another TUN here would fail in the sandbox.
+	if !features.Android && runtime.GOOS != "ios" {
 		listener.ReCreateTun(general.Tun, tunnel.Tunnel)
 	}
 }

@@ -4,7 +4,20 @@ package main
 
 //#include "bride.h"
 import "C"
-import "unsafe"
+import (
+	"unsafe"
+
+	"github.com/metacubex/mihomo/dns"
+)
+
+func handleUpdateSystemDNS(servers []string) {
+	dns.UpdateSystemDNS(servers)
+	dns.FlushCacheWithDefaultResolver()
+}
+
+func dispatchPlatformMessage(_ Message) bool {
+	return false
+}
 
 func protect(callback unsafe.Pointer, fd int) {
 	C.protect(callback, C.int(fd))

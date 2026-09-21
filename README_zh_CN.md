@@ -24,7 +24,7 @@ on Mobile:
 
 ## Features
 
-✈️ 多平台: Android, Windows, macOS and Linux
+✈️ 多平台: Android、iOS、Windows、macOS 和 Linux
 
 💻 自适应多个屏幕尺寸,多种颜色主题可供选择
 
@@ -114,6 +114,19 @@ on Mobile:
 
            ```bash
            dart .\setup.dart macos --arch <arm64 | amd64>
+           ```
+
+    - iOS
+
+        1. 使用安装了 Xcode、Go 和 CocoaPods 的 macOS，并准备 Apple Developer Team
+
+        2. 为 Runner 和 PacketTunnel target 启用 App Group
+           `group.com.champion.flClash` 与 Network Extensions 能力
+
+        3. 运行构建脚本
+
+           ```bash
+           dart ./setup.dart ios
            ```
 
 ## Star History
