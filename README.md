@@ -123,28 +123,11 @@ Support the following actions
 
     - iOS
 
-        1. Use macOS with Xcode, Go and CocoaPods, signed in with your Apple
-           Developer account
+        1. Use macOS with Xcode, Go and CocoaPods
 
-        2. Replace the signing identifiers with your own — the ones in this
-           repository belong to the upstream developer and cannot be reused:
-
-           - open `ios/Runner.xcworkspace` and set your own **Team** and
-             **Bundle Identifier** for both the **Runner** and **PacketTunnel**
-             targets
-
-           - add the **App Groups** capability (your own group, for example
-             `group.` followed by your bundle identifier) and the **Network
-             Extensions** capability with **Packet Tunnel Provider** enabled,
-             to both targets
-
-           - keep the App Group string consistent everywhere:
-             `ios/Runner/Runner.entitlements`,
-             `ios/PacketTunnel/PacketTunnel.entitlements`,
-             `ios/Runner/AppDelegate.swift` and
-             `ios/PacketTunnel/PacketTunnelProvider.swift`; update the packet
-             tunnel provider bundle identifier in `ios/Runner/AppDelegate.swift`
-             to match the PacketTunnel bundle identifier
+        2. Open `ios/Runner.xcworkspace` and set your own Team, Bundle
+           Identifier and App Group for the Runner and PacketTunnel targets
+           (add the App Groups and Network Extensions capabilities)
 
         3. Build the iOS core and application
 
@@ -152,8 +135,7 @@ Support the following actions
            dart ./setup.dart ios
            ```
 
-        4. Install on your device: open `ios/Runner.xcworkspace` in Xcode,
-           select your device and press Run
+        4. Run it on your device from Xcode
 
 ## Star
 
