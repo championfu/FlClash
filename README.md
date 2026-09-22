@@ -10,7 +10,9 @@
 
 [![Channel](https://img.shields.io/badge/Telegram-Channel-blue?style=flat-square&logo=telegram)](https://t.me/FlClash)
 
-A multi-platform proxy client based on ClashMeta, simple and easy to use, open-source and ad-free.
+A multi-platform proxy client based on ClashMeta, simple, open-source and ad-free.
+
+This fork adds **iOS** support (iPhone / iPad), alongside Android, Windows, macOS and Linux.
 
 on Desktop:
 <p style="text-align: center;">

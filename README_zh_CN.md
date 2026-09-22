@@ -10,7 +10,9 @@
 
 [![Channel](https://img.shields.io/badge/Telegram-Channel-blue?style=flat-square&logo=telegram)](https://t.me/FlClash)
 
-基于ClashMeta的多平台代理客户端，简单易用，开源无广告。
+基于 ClashMeta 的多平台代理客户端，简单、开源、无广告。
+
+本分支新增 **iOS** 支持（iPhone / iPad），现已覆盖 iOS、Android、Windows、macOS、Linux。
 
 on Desktop:
 <p style="text-align: center;">
