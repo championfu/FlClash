@@ -123,16 +123,32 @@ on iOS:
 
     - iOS
 
-        1. 使用安装了 Xcode、Go 和 CocoaPods 的 macOS，并准备 Apple Developer Team
+        1. 使用安装了 Xcode、Go 和 CocoaPods 的 macOS，并在 Xcode 中登录你的 Apple
+           开发者账号
 
-        2. 为 Runner 和 PacketTunnel target 启用 App Group
-           `group.com.champion.flClash` 与 Network Extensions 能力
+        2. 把签名相关标识换成你自己的 —— 仓库里的标识属于上游开发者，其他人无法使用：
 
-        3. 运行构建脚本
+           - 打开 `ios/Runner.xcworkspace`，为 **Runner** 和 **PacketTunnel**
+             两个 target 设置你自己的 Team 与 Bundle Identifier
+
+           - 为两个 target 添加 **App Groups** 能力（使用你自己的组，例如 `group.` +
+             你的 Bundle Identifier）和 **Network Extensions** 能力（勾选
+             **Packet Tunnel Provider**）
+
+           - App Group 字符串需在所有位置保持一致：`ios/Runner/Runner.entitlements`、
+             `ios/PacketTunnel/PacketTunnel.entitlements`、
+             `ios/Runner/AppDelegate.swift`、
+             `ios/PacketTunnel/PacketTunnelProvider.swift`；并把
+             `ios/Runner/AppDelegate.swift` 里的 packet tunnel provider bundle
+             identifier 改成与 PacketTunnel 的 Bundle Identifier 一致
+
+        3. 构建 iOS 核心与应用
 
            ```bash
            dart ./setup.dart ios
            ```
+
+        4. 安装到设备：用 Xcode 打开 `ios/Runner.xcworkspace`，选择你的设备后 Run
 
 ## Star History
 

@@ -123,16 +123,37 @@ Support the following actions
 
     - iOS
 
-        1. Use macOS with Xcode, Go, CocoaPods, and an Apple Developer team
+        1. Use macOS with Xcode, Go and CocoaPods, signed in with your Apple
+           Developer account
 
-        2. Enable the App Group `group.com.champion.flClash` and the Network
-           Extensions capability for both Runner and PacketTunnel targets
+        2. Replace the signing identifiers with your own — the ones in this
+           repository belong to the upstream developer and cannot be reused:
+
+           - open `ios/Runner.xcworkspace` and set your own **Team** and
+             **Bundle Identifier** for both the **Runner** and **PacketTunnel**
+             targets
+
+           - add the **App Groups** capability (your own group, for example
+             `group.` followed by your bundle identifier) and the **Network
+             Extensions** capability with **Packet Tunnel Provider** enabled,
+             to both targets
+
+           - keep the App Group string consistent everywhere:
+             `ios/Runner/Runner.entitlements`,
+             `ios/PacketTunnel/PacketTunnel.entitlements`,
+             `ios/Runner/AppDelegate.swift` and
+             `ios/PacketTunnel/PacketTunnelProvider.swift`; update the packet
+             tunnel provider bundle identifier in `ios/Runner/AppDelegate.swift`
+             to match the PacketTunnel bundle identifier
 
         3. Build the iOS core and application
 
            ```bash
            dart ./setup.dart ios
            ```
+
+        4. Install on your device: open `ios/Runner.xcworkspace` in Xcode,
+           select your device and press Run
 
 ## Star
 
