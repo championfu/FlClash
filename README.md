@@ -14,6 +14,13 @@ A multi-platform proxy client based on ClashMeta, simple, open-source and ad-fre
 
 This fork adds **iOS** support (iPhone / iPad), alongside Android, Windows, macOS and Linux.
 
+iOS highlights:
+
+- Native VPN via Network Extension (Packet Tunnel)
+- Control Center toggle to start / stop the VPN (iOS 18+)
+- App icon and display name adapted for iOS
+- Profiles, WebDAV backup & restore and settings shared with the other platforms
+
 on Desktop:
 <p style="text-align: center;">
     <img alt="desktop" src="snapshots/desktop.gif">

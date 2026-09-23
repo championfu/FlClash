@@ -14,6 +14,13 @@
 
 本分支新增 **iOS** 支持（iPhone / iPad），现已覆盖 iOS、Android、Windows、macOS、Linux。
 
+iOS 特性：
+
+- 基于 Network Extension（Packet Tunnel）的原生 VPN
+- 控制中心控件一键开关 VPN（iOS 18+）
+- 适配 iOS 的应用图标与应用名
+- 订阅、WebDAV 备份与恢复、设置与其他平台保持一致
+
 on Desktop:
 <p style="text-align: center;">
     <img alt="desktop" src="snapshots/desktop.gif">

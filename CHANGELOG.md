@@ -1,3 +1,13 @@
+## v0.8.92-ios
+
+- Add iOS support (iPhone / iPad)
+
+- Add iOS control center VPN toggle
+
+- Add iOS app icon and display name
+
+- Sync app state when the VPN is toggled outside the app
+
 ## v0.8.92
 
 - Add sqlite store
