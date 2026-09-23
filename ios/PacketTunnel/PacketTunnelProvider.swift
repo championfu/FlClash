@@ -11,7 +11,20 @@ final class PacketTunnelProvider: NEPacketTunnelProvider {
     private static let ipv6Prefix = "fdfe:dcba:9876::1/126"
     private static let dns6 = "fdfe:dcba:9876::2"
 
-    private let coreQueue = DispatchQueue(label: "com.follow.flclash.packet-tunnel.core")
+    /// 并发队列：只读动作（测速/查询/事件）彼此并发，生命周期与配置动作以 barrier 独占。
+    /// 核本身支持并发动作（Android 侧就是每个 action 一个 goroutine），串行只是平台侧的限制。
+    private let coreQueue = DispatchQueue(
+        label: "com.follow.flclash.packet-tunnel.core",
+        attributes: .concurrent
+    )
+    /// 并发动作在白名单内，可与彼此并发，但仍会被 barrier 动作挡住。
+    private static let readOnlyMethods: Set<String> = [
+        "asyncTestDelay", "getProxies", "getTraffic", "getTotalTraffic",
+        "getConnections", "getExternalProvider", "getExternalProviders",
+        "getConfig", "validateConfig", "getMemory",
+    ]
+    /// 测速并发上限：扩展进程内存有限，避免一次性开出几十条连接。
+    private static let testDelayGate = DispatchSemaphore(value: 8)
     private var sharedState: [String: Any] = [:]
 
     override func startTunnel(
@@ -36,7 +49,7 @@ final class PacketTunnelProvider: NEPacketTunnelProvider {
                     return
                 }
                 trace.checkpoint("networkSettings.applied coreQueue.enqueue")
-                self.coreQueue.async {
+                self.coreQueue.async(flags: .barrier) {
                     trace.checkpoint("coreQueue.enter")
                     do {
                         try self.startCore(vpnOptions: vpnOptions)
@@ -61,7 +74,7 @@ final class PacketTunnelProvider: NEPacketTunnelProvider {
         completionHandler: @escaping () -> Void
     ) {
         let trace = TunnelDiagnostics.Span("PacketTunnel", "stopTunnel reason=\(reason.rawValue)")
-        coreQueue.async {
+        coreQueue.async(flags: .barrier) {
             trace.checkpoint("coreQueue.enter")
             FlClashCore.stopTunnel()
             trace.finish()
@@ -74,7 +87,18 @@ final class PacketTunnelProvider: NEPacketTunnelProvider {
         completionHandler: ((Data?) -> Void)?
     ) {
         let receivedAt = ProcessInfo.processInfo.systemUptime
-        coreQueue.async { [weak self] in
+        // 先分流：只读动作并发执行，生命周期与配置动作以 barrier 互斥。
+        // 这里只做一次便宜的解析用于选队列，真正的处理仍在队列内执行（保留 queueWait 埋点语义）。
+        let probe = (try? JSONSerialization.jsonObject(with: messageData)) as? [String: Any]
+        let incomingType = probe?["type"] as? String
+        let incomingPayload = probe?["payload"] as? String
+        let incomingMethod = incomingType == "invokeAction"
+            ? TunnelDiagnostics.actionName(incomingPayload ?? "")
+            : (incomingType ?? "invalid")
+        let isReadOnly = incomingType == "pollEvent"
+            || (incomingType == "invokeAction" && Self.readOnlyMethods.contains(incomingMethod))
+
+        let task: () -> Void = { [weak self] in
             guard let self else {
                 completionHandler?(nil)
                 return
@@ -107,6 +131,18 @@ final class PacketTunnelProvider: NEPacketTunnelProvider {
                 completionHandler?(nil)
                 self.cancelTunnelWithError(error)
             }
+        }
+
+        guard isReadOnly else {
+            coreQueue.async(flags: .barrier, execute: task)
+            return
+        }
+        coreQueue.async {
+            if incomingMethod == "asyncTestDelay" {
+                Self.testDelayGate.wait()
+                defer { Self.testDelayGate.signal() }
+            }
+            task()
         }
     }
 
