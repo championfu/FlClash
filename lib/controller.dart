@@ -553,6 +553,22 @@ extension SetupControllerExt on AppController {
     _ref.read(requestsProvider.notifier).value = FixedList(500);
   }
 
+  /// 外部开关（iOS 控制中心控件 / Android 快捷设置磁贴）改变系统 VPN 状态后，
+  /// App 侧需要主动对账：从原生侧读实际状态，与 App 自身状态不一致就同步过来。
+  /// 场景：App 已在前台/后台运行，用户从控制中心拨动开关。
+  Future<void> syncStatusFromSystem() async {
+    if (!(system.isIOS || system.isAndroid)) {
+      return;
+    }
+    await globalState.updateStartTime();
+    final systemIsStart = globalState.isStart;
+    final appIsStart = _ref.read(runTimeProvider) != null;
+    if (systemIsStart == appIsStart) {
+      return;
+    }
+    await updateStatus(systemIsStart, isInit: true);
+  }
+
   Future<void> updateStatus(bool isStart, {bool isInit = false}) async {
     if (isStart) {
       if (!isInit) {

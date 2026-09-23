@@ -12,18 +12,25 @@
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		1BA0E009A45983F2BCED9625 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ED3AC35D8086042379FC75 /* PacketTunnelProvider.swift */; };
 		1C6E3A488CB4BEBA1DCBECCA /* FlClashCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED08C3964F3C915291F9E0B /* FlClashCore.xcframework */; };
+		234E1E2CD60BE571009C04B5 /* VPNToggleControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BD7123C2B497E2983F56ED /* VPNToggleControl.swift */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		561D38A47AC8175BA2CF60FB /* PacketTunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 47E4154AC57B1C70F970D578 /* PacketTunnel.appex */; };
 		62F802AB7AA370F718C6BA10 /* FlClashCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED08C3964F3C915291F9E0B /* FlClashCore.xcframework */; };
+		72A8CE195FC2720B82E576DD /* FlClashControlShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5F3244E2CC2FAAABF49A9 /* FlClashControlShared.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */; };
 		7BE8BD132EC58A6EC993145C /* FlClashCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E167B0357B536A921478129B /* FlClashCore.swift */; };
 		7CBBB38F6280C86ABC4C6C31 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C1380736C702170DE841718 /* Pods_Runner.framework */; };
+		83877BE0ABF004003F9EE80B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF388A69C99E8E969144120 /* Foundation.framework */; };
 		8EC7108982972AF37FA8AF6F /* FlClashCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E167B0357B536A921478129B /* FlClashCore.swift */; };
+		92E428594BD2E9AF41F5AC66 /* FlClashControlBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAB5E3BBBB755DE504D2628 /* FlClashControlBundle.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		A58852E246F05283EB4BCC23 /* FlClashControlShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5F3244E2CC2FAAABF49A9 /* FlClashControlShared.swift */; };
+		C59D4DA4C12CCF76769EE711 /* FlClashControl.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E0FEB8DE46758E3B1ED44AC5 /* FlClashControl.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E53E32667B4CF1178B5DDCFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B563AE540191C24A33BBD6 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +47,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 88CA293E01783296E5DE1812;
 			remoteInfo = PacketTunnel;
+		};
+		87DA20C7DA7B547B7AD038CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 14413991C18748DDFA29536A;
+			remoteInfo = FlClashControl;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -61,6 +75,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				561D38A47AC8175BA2CF60FB /* PacketTunnel.appex in Embed App Extensions */,
+				C59D4DA4C12CCF76769EE711 /* FlClashControl.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +86,7 @@
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		1FF388A69C99E8E969144120 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2F8DFE072C5F74C381C6FDC7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		304206D32C7E0ED370933906 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,12 +94,14 @@
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		47E4154AC57B1C70F970D578 /* PacketTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PacketTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B148EF66ABA5DD38156607 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		58BEDE6035E30F73C1344580 /* FlClashControl.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = FlClashControl.entitlements; sourceTree = "<group>"; };
 		6C1380736C702170DE841718 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7630F5FEC1655BA2994853AD /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
+		91BD7123C2B497E2983F56ED /* VPNToggleControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VPNToggleControl.swift; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,17 +111,30 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3D3B3AEF1091ADB0C022070 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		A9AC9EE7A2B632A034A089CE /* FlClashCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FlClashCore.h; sourceTree = "<group>"; };
+		AB16D981C8D10CE0211274C0 /* Generated.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Generated.xcconfig; sourceTree = "<group>"; };
+		AFAB5E3BBBB755DE504D2628 /* FlClashControlBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FlClashControlBundle.swift; sourceTree = "<group>"; };
 		B2EA91D8A80A171EDAE8C717 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B53A7214297BA9C402442E07 /* PacketTunnel.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = PacketTunnel.entitlements; sourceTree = "<group>"; };
+		C1B563AE540191C24A33BBD6 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3ED3AC35D8086042379FC75 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		DFADE3083B4E826365AD99FF /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
+		E0FEB8DE46758E3B1ED44AC5 /* FlClashControl.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FlClashControl.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E167B0357B536A921478129B /* FlClashCore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FlClashCore.swift; sourceTree = "<group>"; };
+		E6C5F3244E2CC2FAAABF49A9 /* FlClashControlShared.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FlClashControlShared.swift; sourceTree = "<group>"; };
 		FA5ECABFDDFB7059F8210139 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		FC1050000000000000000001 /* Extension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Extension.xcconfig; path = Flutter/Extension.xcconfig; sourceTree = "<group>"; };
 		FED08C3964F3C915291F9E0B /* FlClashCore.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = FlClashCore.xcframework; path = ../libclash/ios/FlClashCore.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1A107DF4E1C7C7BDE2E68D7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83877BE0ABF004003F9EE80B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A0509081F029DE5EECCFA47 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -191,6 +222,7 @@
 				7AFA3C8E1D35360C0083082E /* Release.xcconfig */,
 				9740EEB31CF90195004384FC /* Generated.xcconfig */,
 				FC1050000000000000000001 /* Extension.xcconfig */,
+				AB16D981C8D10CE0211274C0 /* Generated.xcconfig */,
 			);
 			name = Flutter;
 			sourceTree = "<group>";
@@ -215,6 +247,8 @@
 				923DFB8C0AE55F6608C09B55 /* Frameworks */,
 				97B2D79E195EE7BA6D4C87EA /* Core */,
 				2A98EC751FE00BB84B7E8BA7 /* PacketTunnel */,
+				E25E30EA9E5207623A3BF44B /* FlClashControl */,
+				F60742C65986D3BDA331850E /* Shared */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,6 +258,7 @@
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
 				47E4154AC57B1C70F970D578 /* PacketTunnel.appex */,
+				E0FEB8DE46758E3B1ED44AC5 /* FlClashControl.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -244,9 +279,46 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
+		E25E30EA9E5207623A3BF44B /* FlClashControl */ = {
+			isa = PBXGroup;
+			children = (
+				AFAB5E3BBBB755DE504D2628 /* FlClashControlBundle.swift */,
+				91BD7123C2B497E2983F56ED /* VPNToggleControl.swift */,
+				C1B563AE540191C24A33BBD6 /* Assets.xcassets */,
+				2F8DFE072C5F74C381C6FDC7 /* Info.plist */,
+				58BEDE6035E30F73C1344580 /* FlClashControl.entitlements */,
+			);
+			path = FlClashControl;
+			sourceTree = "<group>";
+		};
+		F60742C65986D3BDA331850E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E6C5F3244E2CC2FAAABF49A9 /* FlClashControlShared.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		14413991C18748DDFA29536A /* FlClashControl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13E70915ACDE7B875F5956F9 /* Build configuration list for PBXNativeTarget "FlClashControl" */;
+			buildPhases = (
+				A1D6704936FB6EDDC2C8331B /* Sources */,
+				1A107DF4E1C7C7BDE2E68D7B /* Frameworks */,
+				1F000699FB4FC121BB5D78D7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlClashControl;
+			productName = FlClashControl;
+			productReference = E0FEB8DE46758E3B1ED44AC5 /* FlClashControl.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		331C8080294A63A400263BE5 /* RunnerTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */;
@@ -301,6 +373,7 @@
 			);
 			dependencies = (
 				93F9B989CDB2ADA554783D07 /* PBXTargetDependency */,
+				A5094F951ADA4CDF31CB5593 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -343,11 +416,20 @@
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
 				88CA293E01783296E5DE1812 /* PacketTunnel */,
+				14413991C18748DDFA29536A /* FlClashControl */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1F000699FB4FC121BB5D78D7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E53E32667B4CF1178B5DDCFE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		331C807F294A63A400263BE5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -496,6 +578,17 @@
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */,
 				7BE8BD132EC58A6EC993145C /* FlClashCore.swift in Sources */,
+				A58852E246F05283EB4BCC23 /* FlClashControlShared.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1D6704936FB6EDDC2C8331B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92E428594BD2E9AF41F5AC66 /* FlClashControlBundle.swift in Sources */,
+				234E1E2CD60BE571009C04B5 /* VPNToggleControl.swift in Sources */,
+				72A8CE195FC2720B82E576DD /* FlClashControlShared.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +605,12 @@
 			name = PacketTunnel;
 			target = 88CA293E01783296E5DE1812 /* PacketTunnel */;
 			targetProxy = 6F3293F8F6A2DD38C01A7302 /* PBXContainerItemProxy */;
+		};
+		A5094F951ADA4CDF31CB5593 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FlClashControl;
+			target = 14413991C18748DDFA29536A /* FlClashControl */;
+			targetProxy = 87DA20C7DA7B547B7AD038CE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -535,6 +634,38 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2025BA012841A5F1E21F7705 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9740EEB31CF90195004384FC /* Generated.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = FlClashControl/FlClashControl.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NQFD57H38R;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FlClashControl/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.champion.flClash.Control;
+				PRODUCT_NAME = FlClashControl;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = FLCLASH_EXTENSION;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Profile;
+		};
 		249021D3217E4FDB00AE95B9 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -700,6 +831,69 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Profile;
+		};
+		727393A794A6B1CAB5383769 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9740EEB31CF90195004384FC /* Generated.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = FlClashControl/FlClashControl.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NQFD57H38R;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FlClashControl/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.champion.flClash.Control;
+				PRODUCT_NAME = FlClashControl;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = FLCLASH_EXTENSION;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		90B47D77DBEBAA7EAADDBB14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9740EEB31CF90195004384FC /* Generated.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = FlClashControl/FlClashControl.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NQFD57H38R;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FlClashControl/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.champion.flClash.Control;
+				PRODUCT_NAME = FlClashControl;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = FLCLASH_EXTENSION;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 		97C147031CF9000F007C117D /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -943,6 +1137,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		13E70915ACDE7B875F5956F9 /* Build configuration list for PBXNativeTarget "FlClashControl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90B47D77DBEBAA7EAADDBB14 /* Release */,
+				727393A794A6B1CAB5383769 /* Debug */,
+				2025BA012841A5F1E21F7705 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

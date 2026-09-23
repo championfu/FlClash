@@ -1,6 +1,7 @@
 import Flutter
 import NetworkExtension
 import UIKit
+import WidgetKit
 
 @main
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
@@ -123,12 +124,12 @@ final class ServicePlugin: NSObject, FlutterPlugin, IOSServiceDelegate {
     }
 }
 
-private protocol IOSServiceDelegate: AnyObject {
+protocol IOSServiceDelegate: AnyObject {
     func serviceDidEmit(event: String)
     func serviceDidCrash(message: String)
 }
 
-private final class IOSService {
+final class IOSService {
     static let shared = IOSService()
 
     weak var delegate: IOSServiceDelegate?
@@ -241,6 +242,7 @@ private final class IOSService {
                         try manager.connection.startVPNTunnel()
                         trace.finish("requestAccepted (await VPN status notification)")
                         self.defaults?.set(Date(), forKey: IOSConstants.startTimeKey)
+                        self.updateSharedVPNState()
                         completion(nil)
                     } catch {
                         TunnelDiagnostics.error("Service", "startVPNTunnel", error)
@@ -267,6 +269,46 @@ private final class IOSService {
         TunnelDiagnostics.log("Service", "stopVPN requested status=\(statusName)")
         manager?.connection.stopVPNTunnel()
         defaults?.removeObject(forKey: IOSConstants.startTimeKey)
+        defaults?.set(false, forKey: FlClashControlShared.vpnStateKey)
+        reloadControls()
+    }
+
+    /// Entry point used by the Control Center control (ToggleVPNIntent).
+    func setEnabled(_ enabled: Bool, completion: @escaping (Error?) -> Void) {
+        defaults?.set(enabled, forKey: FlClashControlShared.vpnStateKey)
+        reloadControls()
+        if manager == nil {
+            loadManager { [weak self] error in
+                guard let self else {
+                    completion(nil)
+                    return
+                }
+                if let error {
+                    completion(error)
+                    return
+                }
+                self.setEnabled(enabled, completion: completion)
+            }
+            return
+        }
+        if enabled {
+            start(completion: completion)
+        } else {
+            stop()
+            completion(nil)
+        }
+    }
+
+    func updateSharedVPNState() {
+        let on = isTunnelActive || manager?.connection.status == .connecting
+        defaults?.set(on, forKey: FlClashControlShared.vpnStateKey)
+        reloadControls()
+    }
+
+    private func reloadControls() {
+        if #available(iOS 18.0, *) {
+            ControlCenter.shared.reloadControls(ofKind: FlClashControlShared.controlKind)
+        }
     }
 
     private var isTunnelActive: Bool {
@@ -304,6 +346,7 @@ private final class IOSService {
                 ($0.protocolConfiguration as? NETunnelProviderProtocol)?.providerBundleIdentifier
                     == IOSConstants.providerBundleIdentifier
             }) ?? self.makeManager()
+            self.updateSharedVPNState()
             trace.finish("status=\(self.statusName)")
             completion(nil)
         }
@@ -365,6 +408,7 @@ private final class IOSService {
                 }
             }
         }
+        updateSharedVPNState()
         guard manager?.connection.status == .disconnected else { return }
         defaults?.removeObject(forKey: IOSConstants.startTimeKey)
     }

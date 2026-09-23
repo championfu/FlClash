@@ -72,6 +72,10 @@ class _AppStateManagerState extends ConsumerState<AppStateManager>
         if (system.isAndroid) {
           appController.tryStartCore();
         }
+        if (system.isIOS) {
+          // 控制中心控件等外部开关可能已改变 VPN 状态，回到前台时对账一次
+          appController.syncStatusFromSystem();
+        }
       });
     }
   }
