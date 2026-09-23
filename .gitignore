@@ -72,3 +72,6 @@ devtools_options.yaml
 
 # WorkBuddy
 .workbuddy/
+
+# iOS local build output
+/ios/build/
